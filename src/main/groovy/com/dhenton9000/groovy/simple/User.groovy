@@ -16,7 +16,7 @@ class User {
         String lastName;
         String email;
         Date dob;
-        
+        def  languages = [];
     
    
     
