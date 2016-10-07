@@ -18,16 +18,17 @@ class User {
         Date dob;
         
     
-    User(String f, String l)
-    {
-        this.firstName = f;
-        this.lastName = l;
-        
-    }
+   
     
     String toString()
     {
         firstName +" "+lastName;
+    }
+    
+    void printFullName()
+    {
+        
+       println "My name is $firstName $lastName"
     }
     
 }
