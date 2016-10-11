@@ -21,31 +21,36 @@
         <property name="lastName" value="Farkel" />
     </bean>
     
-     <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="poolSource"
-        destroy-method="close">
+    <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="poolSource"
+           destroy-method="close">
         <property name="driverClass" value="org.postgresql.Driver"/>
         <property name="jdbcUrl" value="jdbc:postgresql://localhost:5433/jdatabase"/>
         <property name="user" value="test"/>
         <property name="password" value="test"/>
     </bean>
     
+<!--    the datasource is wrapped in the proxy below to handle that groovy sql
+    closes the connection by default this bean prevents that and allows
+    the framework to close at the end of the method marked transactional-->
+    
+    
     <bean id="dataSource"
-    class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
-    <constructor-arg ref="poolSource" />
-</bean>
+          class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+        <constructor-arg ref="poolSource" />
+    </bean>
 
 
-<bean id="transactionManager"
-    class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    <property name="dataSource">
-        <ref bean="dataSource" />
-    </property>
-</bean>
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource">
+            <ref bean="dataSource" />
+        </property>
+    </bean>
 
 
-<bean id="sql"   class="groovy.sql.Sql">
-    <constructor-arg ref="dataSource" />
-</bean>
+    <bean id="sql"   class="groovy.sql.Sql">
+        <constructor-arg ref="dataSource" />
+    </bean>
     
     
     

@@ -25,7 +25,6 @@ import groovy.sql.Sql
 @RunWith(SpringRunner.class)
 @Transactional
 @Slf4j("LOG")
-//@ContextConfiguration(value="classpath:spring-wo-proxy-config.xml")
 @ContextConfiguration(value="classpath:spring-config.xml")
 class SpringTests {
 
@@ -43,6 +42,7 @@ class SpringTests {
         assertEquals("Fred",user.firstName)
     }
     
+ 
     @Test
     public void testSql()
     {
