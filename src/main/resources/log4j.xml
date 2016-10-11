@@ -28,7 +28,15 @@ zzzzzzzzzzzzzzzzzzzzzzz
         </layout>
     </appender>
 
-   
+   <logger name="org.springframework">
+        <level value="ERROR"/>
+    </logger>
+
+    <logger name="com.mchange">
+        <level value="ERROR"/>
+    </logger>
+
+
 
     <logger name="com.dhenton9000">
         <level value="DEBUG"/>

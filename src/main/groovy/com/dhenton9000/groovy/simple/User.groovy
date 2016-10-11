@@ -6,11 +6,13 @@
 
 package com.dhenton9000.groovy.simple
 
+import groovy.transform.Canonical
+
 /**
  *
  * @author dhenton
  */
-class User {
+@Canonical class User {
 	Long id;
         String firstName;
         String lastName;
