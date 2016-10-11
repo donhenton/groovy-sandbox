@@ -92,6 +92,8 @@
                     <includes>
                         <include>**/*Tests.class</include>
                         <include>**/*Test.class</include>
+                        <include>**/*Tests.groovy</include>
+                        <include>**/*Test.groovy</include>
                         
                     </includes>
                 </configuration>

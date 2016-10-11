@@ -17,7 +17,7 @@ class UserTests extends GroovyTestCase   {
          User u = new User(firstName: "fred",lastName: "farkel");
          assert u.toString().equals("fred farkel");
          
-        u.printFullName()
+        // u.printFullName()
         
      }
     

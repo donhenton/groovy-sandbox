@@ -8,7 +8,8 @@ package com.dhenton9000.groovy.basic
 import groovy.util.logging.Slf4j
 
 /**
- *
+ * this shows that strings can be cohered to other values
+ * 
  * @author dhenton
  */
 
@@ -62,7 +63,7 @@ class BoxSample
     }
     Boolean compareRight(k)
     {
-        log.debug("comparing $i to $k")
+      //  log.debug("comparing $i to $k")
         return i.compareTo(k);
     }
 }
