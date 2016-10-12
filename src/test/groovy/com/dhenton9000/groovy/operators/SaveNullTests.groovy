@@ -10,6 +10,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import static org.junit.Assert.*; 
+import com.dhenton9000.groovy.simple.User
 import groovy.transform.Canonical
  
  
@@ -46,6 +47,23 @@ class SaveNullTests {
     {
         String ISBN = books.get(0).ISBN?.toUpperCase();
         assertEquals("AA1",ISBN)
+    }
+    
+    @Test 
+    public void testElvisOperator()
+    {
+         
+        def player = new User(22,'fred','farkel','ffarkel@gumdrop.com')
+        String javaDisplayName = player.firstName == null ? player.email : player.firstName;
+        def groovyDisplayName = player.firstName ?: player.email
+        assertEquals(javaDisplayName,groovyDisplayName)
+        
+        
+        player = new User(22,null,'farkel','ffarkel@gumdrop.com')
+        javaDisplayName = player.firstName == null ? player.email : player.firstName;
+        groovyDisplayName = player.firstName ?: player.email
+        assertEquals(javaDisplayName,groovyDisplayName)
+      
     }
     
 }
