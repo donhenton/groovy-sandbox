@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package com.dhenton9000.groovy.collections
 
@@ -75,10 +70,10 @@ class ListTests {
         firstList << ['a','b']
           
         def flatList = firstList.flatten()
-//        for(z in flatList)
-//        {
-//             log.debug("value ${z} class ${z.class.name}")
-//        }
+        //        for(z in flatList)
+        //        {
+        //             log.debug("value ${z} class ${z.class.name}")
+        //        }
         assertEquals(ArrayList.class,firstList.get(1).class)
         assertEquals(String.class,flatList.get(1).class)
     }
@@ -90,6 +85,46 @@ class ListTests {
         def person = [first:"Fred",last:"Farkel"]
         assertEquals("Fred",person.first)
          
+    }
+    @Test
+    void testIterateWithEach() {
+        def products = ['GitHub', 'Confluence', 'Hipmunk', 'Outlook']
+
+        // It's very common to iterate through lists. Can it get simpler than this?
+        for (String s : products) {
+            println s
+        }
+        // In Groovy, it can.
+        products.each {
+            println it
+        }
+
+        Map<String, String> idToNameMap = [333: 'Matthew', 233: 'Christopher', 133: 'Dominic']
+
+
+        List<String> javaIdListResult = new LinkedList<String>();
+        for (Map.Entry<String, String> entry : idToNameMap) {
+            javaIdListResult.add(entry.getKey() + entry.getValue());
+        }
+
+        // How would you do this in Groovy?
+        // http://docs.groovy-lang.org/latest/html/groovy-jdk/java/util/Map.html#each(groovy.lang.Closure)
+        def idListResult = []
+
+        idToNameMap.each({k,v -> idListResult.push(k+v)})
+
+
+        assertEquals(idListResult ,['333Matthew', '233Christopher', '133Dominic'])
+    }
+    
+    @Test
+    public void testInKeyword()
+    {
+        String str = "this is me "
+        List list = str.tokenize(" ")
+        String word = "this"
+        assert  word in list == true
+        assert  "hello" in list == false
     }
 	
 }
