@@ -90,14 +90,6 @@ class ListTests {
     void testIterateWithEach() {
         def products = ['GitHub', 'Confluence', 'Hipmunk', 'Outlook']
 
-        // It's very common to iterate through lists. Can it get simpler than this?
-        for (String s : products) {
-            println s
-        }
-        // In Groovy, it can.
-        products.each {
-            println it
-        }
 
         Map<String, String> idToNameMap = [333: 'Matthew', 233: 'Christopher', 133: 'Dominic']
 
