@@ -15,8 +15,20 @@ import static org.junit.Assert.*;
 @Slf4j("LOG")
 public class DelegateTests {
     
-     
+     private final ArrayList<String> testList = new ArrayList<String>();
     
+    @Before
+    public void setTest()
+    {
+        
+        testList.clear();
+        
+    }
+    
+    public void append(String s)
+    {
+        testList.add(s+"z");
+    }
  
  
     /**
@@ -40,10 +52,68 @@ public class DelegateTests {
         def s = new ScopeDemo();
         
         s.startTest()
-        s.answerMap.each{ k, v -> LOG.debug "${k}:${v}" }
+       // s.answerMap.each{ k, v -> LOG.debug "${k}:${v}" }
+        
+        assertEquals(s.answerMap.get("CLASS").thisClassName,s.answerMap.get("NESTED").thisClassName)
+        assertNotEquals(s.answerMap.get("CLASS").ownerClassName,s.answerMap.get("NESTED").ownerClassName)
         
     }
     
+    @Test
+    public void testNoChangeDelegate()
+    {
+        def testWriter = { 
+            append "apples"
+            append "oranges"
+        }
+        def ans = testWriter()
+        assertNull(ans)
+        assertEquals(2,testList.size());
+        assertEquals("applesz",testList.get(0))
+    }
+    
+     @Test
+    public void testChangingDelegateDoesntTakeBecauseOfSearchStrategy()
+    {
+         
+        StringBuffer sb = new StringBuffer()
+        
+        //still go to the class level method here
+        
+        def testWriter = { 
+            append "apples"
+            append "oranges"
+        }
+        testWriter.delegate = sb
+        
+        def ans = testWriter()
+        
+        assertEquals(2,testList.size());
+        assertEquals("applesz",testList.get(0))
+    }
+    
+     @Test
+    public void testChangingDelegateWorksNow()
+    {
+         
+        StringBuffer sb = new StringBuffer()
+        
+        //force the resolve strategy which does two things
+        //creates a return value
+        //appends using stringbuffer
+        
+        
+        def testWriter = { 
+            append "apples"
+            append "oranges"
+        }
+        testWriter.delegate = sb
+        testWriter.resolveStrategy = Closure.DELEGATE_ONLY
+        def ans = testWriter()
+        assertNotNull(ans)
+        assertEquals(0,testList.size());
+        assertEquals("applesoranges",ans.toString())
+    }
     
 }
 
