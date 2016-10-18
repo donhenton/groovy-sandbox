@@ -66,6 +66,20 @@ class SaveNullTests {
       
     }
     
+    
+    @Test
+    public void testElvisOnObjects()
+    {
+        LibraryBook m = new LibraryBook('bbb','Smurfs Fovever')
+        
+        LibraryBook lib = m ?: new LibraryBook('aaa',"Bonzo's night out")
+        
+        assertEquals("bbb",lib.ISBN)
+        m = null
+        lib = m ?: new LibraryBook('aaa',"Bonzo's night out")
+    }
+    
+    
 }
 
 
